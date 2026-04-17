@@ -2,7 +2,7 @@
   "name": "EVG Louis-Marie · Bretagne",
   "short_name": "EVG LM",
   "description": "App officielle de l'EVG de Louis-Marie — Fouesnant · Concarneau",
-  "start_url": "./EVG_LouisMarie.html",
+  "start_url": "/evg-louis-marie/",
   "display": "standalone",
   "orientation": "portrait",
   "background_color": "#0B1724",
@@ -21,6 +21,10 @@
       "purpose": "any maskable"
     }
   ],
-  "categories": ["lifestyle", "social"],
-  "lang": "fr"
+  "categories": [
+    "lifestyle",
+    "social"
+  ],
+  "lang": "fr",
+  "scope": "/evg-louis-marie/"
 }

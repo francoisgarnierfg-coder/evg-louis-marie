@@ -1,4 +1,5 @@
-import os, base64
+import os, base64, io
+from PIL import Image
 
 # Load photos
 photo_dir = 'Photo'
@@ -9,6 +10,20 @@ for f in files:
         b64 = base64.b64encode(fp.read()).decode()
         parts.append('"data:image/jpeg;base64,' + b64 + '"')
 PHOTOS_JS = '[' + ','.join(parts) + ']'
+
+# Load Louis-Marie avatar (face crop, 320x320, optimised for inline embed)
+lm_img_path = "Photo/WhatsApp Image 2026-04-17 at 18.23.14 (2).jpeg"
+lm_img = Image.open(lm_img_path).convert('RGB')
+w, h = lm_img.size
+side = min(w, h)
+left = (w - side) // 2
+top = int((h - side) * 0.08)   # shifted up to capture face
+right = left + side
+bottom = top + side
+lm_crop = lm_img.crop((left, top, right, bottom)).resize((360, 360), Image.LANCZOS)
+buf = io.BytesIO()
+lm_crop.save(buf, format='JPEG', quality=84, optimize=True)
+LM_PHOTO = 'data:image/jpeg;base64,' + base64.b64encode(buf.getvalue()).decode()
 
 HTML = r'''<!DOCTYPE html>
 <html lang="fr">
@@ -83,6 +98,8 @@ button{font-family:var(--fb);cursor:pointer}a{text-decoration:none;color:inherit
 .alert strong{font-weight:700}
 
 .hero{position:relative;overflow:hidden;background:linear-gradient(155deg,var(--ink) 0%,var(--ink2) 55%,#1a5276 100%);color:#fff;padding:60px 24px 48px}
+.lm-av{position:absolute;right:22px;top:50px;width:82px;height:82px;border-radius:50%;overflow:hidden;box-shadow:0 0 0 3px rgba(184,131,10,.7),0 0 0 7px rgba(184,131,10,.15),0 10px 32px rgba(0,0,0,.5);flex-shrink:0;z-index:2}
+.lm-av img{width:100%;height:100%;object-fit:cover}
 .hero-grain{position:absolute;inset:0;pointer-events:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='4'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='200' height='200' filter='url(%23n)' opacity='.035'/%3E%3C/svg%3E");opacity:.7}
 .hero-glow{position:absolute;width:360px;height:360px;border-radius:50%;background:radial-gradient(circle,rgba(25,118,210,.15) 0%,transparent 70%);top:-100px;right:-100px;pointer-events:none}
 .hero-pill{display:inline-flex;align-items:center;gap:6px;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.15);border-radius:99px;padding:5px 14px 5px 10px;font-size:10px;letter-spacing:2px;text-transform:uppercase;margin-bottom:20px;color:rgba(255,255,255,.85)}
@@ -263,6 +280,7 @@ button{font-family:var(--fb);cursor:pointer}a{text-decoration:none;color:inherit
 <div class="page active" id="page-home">
   <div class="hero">
     <div class="hero-grain"></div><div class="hero-glow"></div>
+    <div class="lm-av"><img src="__LM_PHOTO__" alt="Louis-Marie"></div>
     <div class="hero-pill">&#9875; EVG 2026</div>
     <div class="hero-h1">Louis-Marie<em>Bretagne</em></div>
     <div class="hero-p">Week-end entre 10 potes sur la Riviera bretonne &mdash; v&eacute;los, hu&icirc;tres, bateau.</div>
@@ -308,7 +326,7 @@ button{font-family:var(--fb);cursor:pointer}a{text-decoration:none;color:inherit
     <div class="dh"><div class="dd"></div><div class="dt">Vendredi soir &mdash; Arriv&eacute;e</div><div class="dr"></div></div>
     <div class="tl">
       <div class="ev hl"><div class="evc"><div class="evr"><div class="etm"><div class="et1">18h</div></div><div class="eb"><div class="en">&#127968; Arriv&eacute;e &amp; installation</div><div class="el">&#128205; Descente de Rozambars 206, Pleuven, 29170</div><div class="ed">Prise de possession de la maison. Pr&eacute;voir les courses avant : charcuterie, fromages, pain, bi&egrave;res et cidre breton.</div><div class="ebdg"><span class="badge danger">&#9888; Responsable cl&eacute;s</span><span class="badge ocean">&#128722; Intermarch&eacute; Fouesnant</span></div></div></div></div></div>
-      <div class="ev"><div class="evc"><div class="evr"><div class="etm"><div class="et1">Soir</div></div><div class="eb"><div class="en">&#127946; Retrouvailles</div><div class="el">&#128205; Maison &mdash; Pleuven</div><div class="ed">Premier ap&eacute;ritif, plateau charcuterie-fromages, soir&eacute;e &agrave; la maison.</div></div></div></div></div>
+      <div class="ev"><div class="evc"><div class="evr"><div class="etm"><div class="et1">Soir</div></div><div class="eb"><div class="en">&#129346; Retrouvailles</div><div class="el">&#128205; Maison &mdash; Pleuven</div><div class="ed">Premier ap&eacute;ritif, plateau charcuterie-fromages, soir&eacute;e &agrave; la maison.</div></div></div></div></div>
     </div>
   </div>
   <div class="dw">
@@ -325,7 +343,7 @@ button{font-family:var(--fb);cursor:pointer}a{text-decoration:none;color:inherit
     <div class="dh"><div class="dd" style="background:var(--teal)"></div><div class="dt" style="color:var(--teal)">Dimanche &mdash; Cl&ocirc;ture</div><div class="dr"></div></div>
     <div class="tl">
       <div class="ev hl"><div class="evc"><div class="evr"><div class="etm"><div class="et1">Matin</div></div><div class="eb"><div class="en">&#127968; Rangement maison</div><div class="el">&#128205; Maison &mdash; Pleuven</div><div class="ed">Nettoyage collectif et remise en &eacute;tat avant le d&eacute;part.</div></div></div></div></div>
-      <div class="ev"><div class="evc"><div class="evr"><div class="etm"><div class="et1">Matin</div></div><div class="eb"><div class="en">&#9961; Messe dominicale</div><div class="el">&#128205; &Eacute;glise Saint-Pierre de Fouesnant</div><div class="ed">V&eacute;rifier les horaires de messe avant le week-end.</div></div></div></div></div>
+      <div class="ev"><div class="evc"><div class="evr"><div class="etm"><div class="et1">Matin</div></div><div class="eb"><div class="en">&#9962; Messe dominicale</div><div class="el">&#128205; &Eacute;glise Saint-Pierre de Fouesnant</div><div class="ed">V&eacute;rifier les horaires de messe avant le week-end.</div></div></div></div></div>
       <div class="ev hl"><div class="evc"><div class="evr"><div class="etm"><div class="et1">Midi</div><div class="et2">&rarr; ~14h</div></div><div class="eb"><div class="en">&#127869; La Long&egrave;re &mdash; D&eacute;jeuner</div><div class="el">&#128205; 5 Chemin de Ker an Braz, Fouesnant</div><div class="ed">Restaurant gastronomique breton. Cuisine du terroir soign&eacute;e, terrasse.</div><div class="ebdg"><span class="badge def">&#9990; 02 98 56 58 17</span><span class="badge amber">&#11088; 4.7/5</span></div><div class="alert amber">R&eacute;servation conseill&eacute;e pour 10 &mdash; ouvert dimanche midi.</div></div></div></div></div>
       <div class="ev"><div class="evc"><div class="evr"><div class="etm"><div class="et1">~14h</div></div><div class="eb"><div class="en">&#128075; D&eacute;parts</div><div class="el">&#128205; Maison &mdash; Pleuven</div><div class="ed">Check-out et d&eacute;parts.</div></div></div></div></div>
     </div>
@@ -363,7 +381,7 @@ button{font-family:var(--fb);cursor:pointer}a{text-decoration:none;color:inherit
   <div class="lhd"><h2>Logement</h2><p>Notre base de vie bretonne</p></div>
   <div class="lbody">
     <div class="lprop"><div class="lcover">&#127969;<div class="lcbadge">&#128205; Pleuven, Finist&egrave;re</div></div><div class="linfo"><div class="lname">La Bonne Descente</div><div class="laddr">&#128205; Descente de Rozambars 206, Pleuven, 29170</div><div class="ldesc">Grande maison de vacances sur 3 &eacute;tages avec vue sur le lac. &Agrave; 10 min de la plage de Mousterlin, 15 min de Fouesnant, 20 min de Concarneau.</div><div class="agrid"><div class="am"><span class="am-i">&#128717;</span>Plusieurs chambres</div><div class="am"><span class="am-i">&#127956;</span>Vue sur le lac</div><div class="am"><span class="am-i">&#127968;</span>3 &eacute;tages</div><div class="am"><span class="am-i">&#127807;</span>Jardin / Terrasse</div><div class="am"><span class="am-i">&#128663;</span>Parking gratuit</div><div class="am"><span class="am-i">&#128246;</span>WiFi inclus</div><div class="am"><span class="am-i">&#127859;</span>Cuisine &eacute;quip&eacute;e</div><div class="am"><span class="am-i">&#127958;</span>10 min des plages</div></div><div class="btn-row"><a class="btn ocean" href="https://www.airbnb.fr/rooms/1101999912598706670" target="_blank">&#127968; Voir sur Airbnb</a><a class="btn ink" href="https://maps.google.com/?q=Descente+de+Rozambars+206+Pleuven+29170" target="_blank">&#128506; Itin&eacute;raire</a></div></div></div>
-    <div class="card" style="padding:20px;margin-bottom:16px"><div style="font-size:17px;font-weight:700;color:var(--ink);margin-bottom:4px">&#128722; Courses &agrave; pr&eacute;voir</div><div style="font-size:12px;color:var(--sub);margin-bottom:14px">Intermarch&eacute; Fouesnant &mdash; en arrivant</div><div class="agrid"><div class="am"><span class="am-i">&#129472;</span>Fromages bretons</div><div class="am"><span class="am-i">&#129385;</span>Charcuterie</div><div class="am"><span class="am-i">&#129366;</span>Pain &amp; viennoiseries</div><div class="am"><span class="am-i">&#127866;</span>Bi&egrave;res bretonnes</div><div class="am"><span class="am-i">&#127863;</span>Cidre local</div><div class="am"><span class="am-i">&#127863;</span>Vin blanc</div><div class="am"><span class="am-i">&#128167;</span>Eau &amp; sodas</div><div class="am"><span class="am-i">&#9749;</span>Caf&eacute; &amp; petit d&eacute;j.</div></div></div>
+    <div class="card" style="padding:20px;margin-bottom:16px"><div style="font-size:17px;font-weight:700;color:var(--ink);margin-bottom:4px">&#128722; Courses &agrave; pr&eacute;voir</div><div style="font-size:12px;color:var(--sub);margin-bottom:14px">Intermarch&eacute; Fouesnant &mdash; en arrivant</div><div class="agrid"><div class="am"><span class="am-i">&#129472;</span>Fromages bretons</div><div class="am"><span class="am-i">&#129385;</span>Charcuterie</div><div class="am"><span class="am-i">&#129366;</span>Pain &amp; viennoiseries</div><div class="am"><span class="am-i">&#127866;</span>Bi&egrave;res bretonnes</div><div class="am"><span class="am-i">&#127863;</span>Vin</div><div class="am"><span class="am-i">&#127864;</span>Alcool &amp; spiritueux</div><div class="am"><span class="am-i">&#128167;</span>Eau &amp; sodas</div><div class="am"><span class="am-i">&#9749;</span>Caf&eacute; &amp; petit d&eacute;j.</div></div></div>
     <div class="card" style="padding:20px"><div style="font-size:17px;font-weight:700;color:var(--ink);margin-bottom:4px">&#128222; Contacts utiles</div><div style="font-size:12px;color:var(--sub);margin-bottom:14px">Tap pour appeler</div><div id="lc"></div></div>
   </div>
 </div>
@@ -551,6 +569,7 @@ let tt;function showT(msg){const t=document.getElementById('toast');t.textConten
 </html>'''
 
 HTML_FINAL = HTML.replace("''' + PHOTOS_JS + r'''", PHOTOS_JS)
+HTML_FINAL = HTML_FINAL.replace('__LM_PHOTO__', LM_PHOTO)
 
 with open('EVG_LouisMarie.html', 'w', encoding='utf-8') as f:
     f.write(HTML_FINAL)

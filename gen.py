@@ -34,10 +34,10 @@ HTML = r'''<!DOCTYPE html>
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="theme-color" content="#0B1724">
-<meta name="apple-mobile-web-app-title" content="EVG LM">
+<meta name="apple-mobile-web-app-title" content="EVJF Loulou">
 <link rel="manifest" href="manifest.json">
 <link rel="apple-touch-icon" href="icon-192.png">
-<title>EVG Louis-Marie</title>
+<title>EVJF Loulou</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
 <style>
@@ -271,7 +271,7 @@ button{font-family:var(--fb);cursor:pointer}a{text-decoration:none;color:inherit
 </style>
 </head>
 <body>
-<div id="splash"><div class="sp-ico">&#9875;</div><div class="sp-nm">Louis-Marie<em>EVG &middot; Bretagne</em></div><div class="sp-loc">Fouesnant &middot; Concarneau</div><div class="sp-bar"><div class="sp-fill"></div></div></div>
+<div id="splash"><div class="sp-ico">&#9875;</div><div class="sp-nm">Loulou<em>EVJF &middot; Bretagne</em></div><div class="sp-loc">Fouesnant &middot; Concarneau</div><div class="sp-bar"><div class="sp-fill"></div></div></div>
 
 <div id="app">
 <div class="pages" id="pages">
@@ -281,21 +281,33 @@ button{font-family:var(--fb);cursor:pointer}a{text-decoration:none;color:inherit
   <div class="hero">
     <div class="hero-grain"></div><div class="hero-glow"></div>
     <div class="lm-av"><img src="__LM_PHOTO__" alt="Louis-Marie"></div>
-    <div class="hero-pill">&#9875; EVG 2026</div>
-    <div class="hero-h1">Louis-Marie<em>Bretagne</em></div>
+    <div class="hero-pill">&#9875; EVJF 2026</div>
+    <div class="hero-h1">Loulou<em>Bretagne</em></div>
     <div class="hero-p">Week-end entre 10 potes sur la Riviera bretonne &mdash; v&eacute;los, hu&icirc;tres, bateau.</div>
     <div class="hero-tags">
       <div class="hero-tag">&#128205; Fouesnant &middot; Pleuven</div>
       <div class="hero-tag">&#128692; C&ocirc;te sauvage</div>
-      <div class="hero-tag">&#129402; Penfoulic</div>
+      <div class="hero-tag">&#129450; Penfoulic</div>
       <div class="hero-tag">&#9973; Santa Maria</div>
     </div>
   </div>
+  <!-- Android install banner (beforeinstallprompt) -->
   <div id="installBanner" style="display:none">
     <div class="install-banner" onclick="installPWA()">
       <div class="install-ico">&#128241;</div>
       <div class="install-txt"><div class="install-t">Installer l'app</div><div class="install-s">Ajouter &agrave; l'&eacute;cran d'accueil</div></div>
       <button class="install-btn" type="button">Installer</button>
+    </div>
+  </div>
+  <!-- iOS Safari install hint -->
+  <div id="iosBanner" style="display:none">
+    <div class="install-banner" style="cursor:default">
+      <div class="install-ico">&#128279;</div>
+      <div class="install-txt">
+        <div class="install-t">Installer sur iPhone</div>
+        <div class="install-s">Tape &#9650; <strong style="color:#fff">Partager</strong> puis <strong style="color:#fff">&laquo;&nbsp;Sur l'&eacute;cran d'accueil&nbsp;&raquo;</strong></div>
+      </div>
+      <button class="install-btn" type="button" onclick="document.getElementById('iosBanner').style.display='none'">&#10005;</button>
     </div>
   </div>
   <div class="cd-wrap">
@@ -321,7 +333,7 @@ button{font-family:var(--fb);cursor:pointer}a{text-decoration:none;color:inherit
 
 <!-- PROGRAMME -->
 <div class="page" id="page-prog">
-  <div class="ph"><h2>Programme</h2><p>Vendredi &rarr; Dimanche &middot; Fouesnant &amp; Concarneau</p></div>
+  <div class="ph"><h2>Programme</h2><p>Vendredi &rarr; Dimanche &middot; Fouesnant &amp; Concarneau &mdash; EVJF Loulou</p></div>
   <div class="dw">
     <div class="dh"><div class="dd"></div><div class="dt">Vendredi soir &mdash; Arriv&eacute;e</div><div class="dr"></div></div>
     <div class="tl">
@@ -333,9 +345,9 @@ button{font-family:var(--fb);cursor:pointer}a{text-decoration:none;color:inherit
     <div class="dh"><div class="dd" style="background:var(--amber)"></div><div class="dt" style="color:var(--amber)">Samedi &mdash; Le Grand Jour</div><div class="dr"></div></div>
     <div class="tl">
       <div class="ev hl"><div class="evc"><div class="evr"><div class="etm"><div class="et1">10h</div><div class="et2">&rarr; ~13h</div></div><div class="eb"><div class="en">&#128692; Location v&eacute;los &mdash; C&ocirc;te sauvage</div><div class="el">&#128205; A Bicyclette &middot; 2 Rue de Cornouaille, Fouesnant</div><div class="ed">Rendez-vous chez le loueur &agrave; 10h. D&eacute;part pour Mousterlin et la c&ocirc;te sauvage par les pistes cyclables (~20 km).</div><div class="ebdg"><span class="badge teal">&#10003; D&eacute;j&agrave; r&eacute;serv&eacute;</span><span class="badge def">&#9990; 06 77 63 90 72</span><span class="badge amber">&#11088; 4.9/5</span></div></div></div></div></div>
-      <div class="ev am"><div class="evc"><div class="evr"><div class="etm"><div class="et1">~13h</div><div class="et2">&rarr; 15h</div></div><div class="eb"><div class="en">&#129402; Viviers de Penfoulic</div><div class="el">&#128205; Route de Beg an Aer, La For&ecirc;t-Fouesnant</div><div class="ed">Hu&icirc;tres, palourdes, langoustines et fruits de mer en bord de mer. Muscadet ou Gros-Plant.</div><div class="ebdg"><span class="badge def">&#9990; 02 98 56 83 89</span><span class="badge amber">&#11088; 4.9/5 &middot; 1047 avis</span></div><div class="alert danger">R&eacute;servation imp&eacute;rative pour 10 personnes.</div></div></div></div></div>
+      <div class="ev am"><div class="evc"><div class="evr"><div class="etm"><div class="et1">~13h</div><div class="et2">&rarr; 15h</div></div><div class="eb"><div class="en">&#129450; Viviers de Penfoulic</div><div class="el">&#128205; Route de Beg an Aer, La For&ecirc;t-Fouesnant</div><div class="ed">Hu&icirc;tres, palourdes, langoustines et fruits de mer en bord de mer. Muscadet ou Gros-Plant.</div><div class="ebdg"><span class="badge def">&#9990; 02 98 56 83 89</span><span class="badge amber">&#11088; 4.9/5 &middot; 1047 avis</span></div><div class="alert danger">R&eacute;servation imp&eacute;rative pour 10 personnes.</div></div></div></div></div>
       <div class="ev"><div class="evc"><div class="evr"><div class="etm"><div class="et1">~15h</div><div class="et2">&rarr; 17h</div></div><div class="eb"><div class="en">&#128260; Retour v&eacute;los &amp; transition</div><div class="el">&#128205; Fouesnant &rarr; Maison Pleuven</div><div class="ed">Retour des v&eacute;los chez le loueur. Maison, temps libre pour se pr&eacute;parer. Trajet &rarr; Concarneau : ~20 min.</div><div class="ebdg"><span class="badge ocean">&#128663; Covoiturage &agrave; organiser</span></div></div></div></div></div>
-      <div class="ev oc"><div class="evc"><div class="evr"><div class="etm"><div class="et1">17h</div><div class="et2">&rarr; 23h</div></div><div class="eb"><div class="en">&#9973; Santa Maria &mdash; Sortie en mer</div><div class="el">&#128205; Quai d'Aiguillon, Port de P&ecirc;che, Concarneau</div><div class="ed">Promenade jusqu'aux &icirc;les Gl&eacute;nan. C&ocirc;te de b&oelig;uf et fruits de mer &agrave; bord. Musique, privatisation EVG.</div><div class="ebdg"><span class="badge teal">&#10003; D&eacute;j&agrave; r&eacute;serv&eacute;</span><span class="badge ocean">&#129385; C&ocirc;te de b&oelig;uf + fruits de mer</span><span class="badge amber">&#11088; 4.7/5</span></div></div></div></div></div>
+      <div class="ev oc"><div class="evc"><div class="evr"><div class="etm"><div class="et1">17h</div><div class="et2">&rarr; 23h</div></div><div class="eb"><div class="en">&#9973; Santa Maria &mdash; Sortie en mer</div><div class="el">&#128205; Quai d'Aiguillon, Port de P&ecirc;che, Concarneau</div><div class="ed">Promenade jusqu'aux &icirc;les Gl&eacute;nan. C&ocirc;te de b&oelig;uf et fruits de mer &agrave; bord. Musique, privatisation EVJF.</div><div class="ebdg"><span class="badge teal">&#10003; D&eacute;j&agrave; r&eacute;serv&eacute;</span><span class="badge ocean">&#129385; C&ocirc;te de b&oelig;uf + fruits de mer</span><span class="badge amber">&#11088; 4.7/5</span></div></div></div></div></div>
       <div class="ev"><div class="evc"><div class="evr"><div class="etm"><div class="et1">23h+</div></div><div class="eb"><div class="en">&#127821; Bro Ar Sud</div><div class="el">&#128205; 2 Rue Saint-Gu&eacute;nol&eacute;, Ville close, Concarneau</div><div class="ed">Rhumerie-brasserie dans la ville close. Cocktails, planches. Note 5/5. Option selon l'&eacute;nergie &mdash; retour en VTC sinon.</div><div class="ebdg"><span class="badge amber">&#11088; 5/5</span><span class="badge def">&#128661; Pr&eacute;voir VTC retour</span></div></div></div></div></div>
     </div>
   </div>
@@ -355,7 +367,7 @@ button{font-family:var(--fb);cursor:pointer}a{text-decoration:none;color:inherit
   <div class="ah"><h2>Activit&eacute;s</h2><p>Tout ce qui vous attend ce week-end</p></div>
   <div class="acts">
     <div class="act"><div class="aimg c1">&#128692;<div class="astar">&#11088; 4.9/5</div></div><div class="abody"><div class="atitle">A Bicyclette &mdash; V&eacute;los</div><div class="ameta"><span class="badge ocean">&#128205; Fouesnant</span><span class="badge teal">&#10003; R&eacute;serv&eacute;</span><span class="badge def">Sam. 10h</span></div><div class="adesc">Rendez-vous chez le loueur &agrave; 10h. C&ocirc;te sauvage par les pistes cyclables jusqu'&agrave; Mousterlin (~20 km). Paysages de dunes et plages de sable blanc.</div><div class="atbl"><div class="arow"><span class="arl">Adresse</span><span class="arv">2 Rue de Cornouaille, Fouesnant</span></div><div class="arow"><span class="arl">T&eacute;l&eacute;phone</span><span class="arv">06 77 63 90 72</span></div><div class="arow"><span class="arl">Distance</span><span class="arv">~20 km A/R</span></div><div class="arow"><span class="arl">Statut</span><span class="arv teal">&#10003; D&eacute;j&agrave; r&eacute;serv&eacute;</span></div></div><div class="btn-row"><a class="btn ink" href="tel:0677639072">&#128222; Appeler</a><a class="btn ocean" href="https://maps.google.com/?q=A+Bicyclette+Fouesnant" target="_blank">&#128506; Maps</a></div></div></div>
-    <div class="act"><div class="aimg c2">&#129402;<div class="astar">&#11088; 4.9 &middot; 1047</div></div><div class="abody"><div class="atitle">&#129402; Viviers de Penfoulic</div><div class="ameta"><span class="badge ocean">&#128205; La For&ecirc;t-Fouesnant</span><span class="badge def">Sam. ~13h</span></div><div class="adesc">Hu&icirc;tres, palourdes, langoustines face &agrave; la mer. Tables en bois en ext&eacute;rieur. L'adresse incontournable.</div><div class="atbl"><div class="arow"><span class="arl">T&eacute;l&eacute;phone</span><span class="arv">02 98 56 83 89</span></div><div class="arow"><span class="arl">Sp&eacute;cialit&eacute;s</span><span class="arv">&#129402; Hu&icirc;tres &middot; Langoustines</span></div><div class="arow"><span class="arl">R&eacute;servation</span><span class="arv danger">Imp&eacute;rative pour 10</span></div></div><div class="btn-row"><a class="btn ink" href="tel:0298568389">&#128222; R&eacute;server</a><a class="btn ocean" href="https://maps.google.com/?q=Aux+Viviers+de+Penfoulic" target="_blank">&#128506; Maps</a></div></div></div>
+    <div class="act"><div class="aimg c2">&#129450;<div class="astar">&#11088; 4.9 &middot; 1047</div></div><div class="abody"><div class="atitle">&#129450; Viviers de Penfoulic</div><div class="ameta"><span class="badge ocean">&#128205; La For&ecirc;t-Fouesnant</span><span class="badge def">Sam. ~13h</span></div><div class="adesc">Hu&icirc;tres, palourdes, langoustines face &agrave; la mer. Tables en bois en ext&eacute;rieur. L'adresse incontournable.</div><div class="atbl"><div class="arow"><span class="arl">T&eacute;l&eacute;phone</span><span class="arv">02 98 56 83 89</span></div><div class="arow"><span class="arl">Sp&eacute;cialit&eacute;s</span><span class="arv">&#129450; Hu&icirc;tres &middot; Langoustines</span></div><div class="arow"><span class="arl">R&eacute;servation</span><span class="arv danger">Imp&eacute;rative pour 10</span></div></div><div class="btn-row"><a class="btn ink" href="tel:0298568389">&#128222; R&eacute;server</a><a class="btn ocean" href="https://maps.google.com/?q=Aux+Viviers+de+Penfoulic" target="_blank">&#128506; Maps</a></div></div></div>
     <div class="act"><div class="aimg c3">&#9973;<div class="astar">&#11088; 4.7/5</div></div><div class="abody"><div class="atitle">Santa Maria &mdash; En mer</div><div class="ameta"><span class="badge ocean">&#128205; Concarneau</span><span class="badge teal">&#10003; R&eacute;serv&eacute;</span><span class="badge def">Sam. 17h&rarr;23h</span></div><div class="adesc">Promenade en baie de Concarneau jusqu'aux &icirc;les Gl&eacute;nan. C&ocirc;te de b&oelig;uf et fruits de mer &agrave; bord. Privatisation EVG.</div><div class="atbl"><div class="arow"><span class="arl">T&eacute;l&eacute;phone</span><span class="arv">06 62 88 00 87</span></div><div class="arow"><span class="arl">Repas</span><span class="arv teal">C&ocirc;te de b&oelig;uf + fruits de mer</span></div><div class="arow"><span class="arl">Statut</span><span class="arv teal">&#10003; D&eacute;j&agrave; r&eacute;serv&eacute;</span></div></div><div class="btn-row"><a class="btn ink" href="tel:0662880087">&#128222; Appeler</a><a class="btn ocean" href="https://maps.google.com/?q=Port+Peche+Concarneau" target="_blank">&#128506; Port</a></div></div></div>
     <div class="act"><div class="aimg c4">&#127821;<div class="astar">&#11088; 5/5</div></div><div class="abody"><div class="atitle">Bro Ar Sud &mdash; Rhumerie</div><div class="ameta"><span class="badge ocean">&#128205; Ville close</span><span class="badge def">Apr&egrave;s 23h</span></div><div class="adesc">Bar-rhumerie dans la ville close. Cocktails tropicaux, planches. Note parfaite. Option selon l'&eacute;nergie.</div><div class="atbl"><div class="arow"><span class="arl">T&eacute;l&eacute;phone</span><span class="arv">02 98 53 29 77</span></div><div class="arow"><span class="arl">Adresse</span><span class="arv">2 Rue Saint-Gu&eacute;nol&eacute;, Concarneau</span></div></div><div class="btn-row"><a class="btn ink" href="tel:0298532977">&#128222; Appeler</a><a class="btn ocean" href="https://maps.google.com/?q=Bro+Ar+Sud+Concarneau" target="_blank">&#128506; Maps</a></div></div></div>
     <div class="act"><div class="aimg c5">&#127869;<div class="astar">&#11088; 4.7/5</div></div><div class="abody"><div class="atitle">La Long&egrave;re &mdash; D&eacute;j. dimanche</div><div class="ameta"><span class="badge ocean">&#128205; Fouesnant</span><span class="badge def">Dim. midi</span></div><div class="adesc">Restaurant gastronomique breton. Cuisine du terroir, service impeccable, terrasse. Ouvert dimanche midi.</div><div class="atbl"><div class="arow"><span class="arl">T&eacute;l&eacute;phone</span><span class="arv">02 98 56 58 17</span></div><div class="arow"><span class="arl">R&eacute;servation</span><span class="arv danger">Conseill&eacute;e pour 10</span></div></div><div class="btn-row"><a class="btn ink" href="tel:0298565817">&#128222; R&eacute;server</a><a class="btn ocean" href="https://maps.google.com/?q=La+Longere+Fouesnant" target="_blank">&#128506; Maps</a></div></div></div>
@@ -416,7 +428,7 @@ const GH_RAW = 'https://raw.githubusercontent.com/' + GH_OWNER + '/' + GH_REPO_N
 
 const CONTACTS=[
   {i:'&#128692;',n:'A Bicyclette',p:'06 77 63 90 72',t:'0677639072'},
-  {i:'&#129402;',n:'Viviers de Penfoulic',p:'02 98 56 83 89',t:'0298568389'},
+  {i:'&#129450;',n:'Viviers de Penfoulic',p:'02 98 56 83 89',t:'0298568389'},
   {i:'&#9973;',n:'Santa Maria',p:'06 62 88 00 87',t:'0662880087'},
   {i:'&#127869;',n:'La Long\u00e8re',p:'02 98 56 58 17',t:'0298565817'},
   {i:'&#127821;',n:'Bro Ar Sud',p:'02 98 53 29 77',t:'0298532977'},
@@ -436,7 +448,7 @@ const CREW=[
 ];
 const LOCS=[
   {l:'&#127968; Maison',d:'La Bonne Descente \u2014 Descente de Rozambars 206, Pleuven',g:'https://maps.google.com/?q=Descente+de+Rozambars+206+Pleuven',e:'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2715!2d-3.968!3d47.905!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!5e0!3m2!1sfr!2sfr!4v1700000001'},
-  {l:'&#129402; Penfoulic',d:'Aux Viviers de Penfoulic \u2014 La For\u00eat-Fouesnant',g:'https://maps.google.com/?q=Aux+Viviers+de+Penfoulic',e:'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2000!2d-3.983082!3d47.893629!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x4810d188948dc101%3A0x4a16f9198a63e267!2sAux%20Viviers%20de%20Penfoulic!5e0!3m2!1sfr!2sfr!4v1700000002'},
+  {l:'&#129450; Penfoulic',d:'Aux Viviers de Penfoulic \u2014 La For\u00eat-Fouesnant',g:'https://maps.google.com/?q=Aux+Viviers+de+Penfoulic',e:'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2000!2d-3.983082!3d47.893629!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x4810d188948dc101%3A0x4a16f9198a63e267!2sAux%20Viviers%20de%20Penfoulic!5e0!3m2!1sfr!2sfr!4v1700000002'},
   {l:'&#9973; Santa Maria',d:'Santa Maria \u2014 Port de P\u00eache, Concarneau',g:'https://maps.google.com/?q=Santa+Maria+Concarneau',e:'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2000!2d-3.9170948!3d47.8731194!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x4810dae2d0c4d367%3A0x557a447dee6ea366!2sSanta%20Maria!5e0!3m2!1sfr!2sfr!4v1700000003'},
   {l:'&#128692; A Bicyclette',d:'A Bicyclette \u2014 2 Rue de Cornouaille, Fouesnant',g:'https://maps.google.com/?q=A+Bicyclette+Fouesnant',e:'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2000!2d-4.0105988!3d47.8948812!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x4810d1b1f5fa69bb%3A0x3d12a82821d441f2!2sA%20Bicyclette!5e0!3m2!1sfr!2sfr!4v1700000004'},
   {l:'&#127869; La Long\u00e8re',d:'La Long\u00e8re \u2014 5 Chemin de Ker an Braz, Fouesnant',g:'https://maps.google.com/?q=La+Longere+Fouesnant',e:'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2000!2d-4.0130813!3d47.8905816!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x4810d9f8aef7bd2d%3A0xfbe779a7ad65a5ca!2sLa%20Long%C3%A8re!5e0!3m2!1sfr!2sfr!4v1700000005'},
@@ -514,6 +526,15 @@ async function loadF(files){
 window.addEventListener('beforeinstallprompt',e=>{e.preventDefault();deferredPrompt=e;document.getElementById('installBanner').style.display='block'});
 window.addEventListener('appinstalled',()=>{document.getElementById('installBanner').style.display='none';showT('App install\u00e9e ! \u2713')});
 function installPWA(){if(deferredPrompt){deferredPrompt.prompt();deferredPrompt.userChoice.then(r=>{deferredPrompt=null;if(r.outcome==='accepted')document.getElementById('installBanner').style.display='none'})}}
+// iOS Safari: show manual install hint if not already in standalone mode
+(function(){
+  const isIOS=/iPhone|iPad|iPod/i.test(navigator.userAgent);
+  const isSafari=/^((?!chrome|android).)*safari/i.test(navigator.userAgent);
+  const isStandalone=('standalone' in navigator)&&navigator.standalone;
+  if(isIOS&&isSafari&&!isStandalone){
+    document.getElementById('iosBanner').style.display='block';
+  }
+})();
 
 window.addEventListener('DOMContentLoaded',()=>{
   buildCrew();buildContacts('hc',CONTACTS.slice(0,4));buildContacts('lc',CONTACTS);

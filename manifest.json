@@ -1,7 +1,7 @@
 {
-  "name": "EVG Louis-Marie · Bretagne",
-  "short_name": "EVG LM",
-  "description": "App officielle de l'EVG de Louis-Marie — Fouesnant · Concarneau",
+  "name": "EVJF Loulou",
+  "short_name": "EVJF Loulou",
+  "description": "App officielle de l'EVJF de Loulou — Fouesnant · Concarneau",
   "start_url": "/evg-louis-marie/",
   "display": "standalone",
   "orientation": "portrait",

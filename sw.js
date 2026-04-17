@@ -1,4 +1,4 @@
-const CACHE = 'evjf-loulou-v3';
+const CACHE = 'evjf-loulou-v4';
 const ASSETS = [
   './EVG_LouisMarie.html',
   './manifest.json',
